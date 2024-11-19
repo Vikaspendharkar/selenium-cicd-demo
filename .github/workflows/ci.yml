@@ -19,7 +19,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.10'
+        python-version: '3.12'
 
     - name: Install dependencies
       run: |
@@ -34,7 +34,8 @@ jobs:
 
     - name: Install Compatible ChromeDriver
       run: |
-        CHROME_VERSION=$(google-chrome --version | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
+        # Set a fixed version for ChromeDriver that is known to work
+        CHROME_VERSION=113  # Choose a version known to have support, e.g., 113
         CHROMEDRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_${CHROME_VERSION}")
         echo "Chrome version: $CHROME_VERSION"
         echo "ChromeDriver version: $CHROMEDRIVER_VERSION"
