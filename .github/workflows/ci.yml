@@ -27,7 +27,7 @@ jobs:
         pip install selenium
         pip install webdriver-manager
         pip install pytest
-        pip install ChromeDriverManager
+        
         pip install service
         
         
