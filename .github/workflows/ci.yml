@@ -37,6 +37,6 @@ jobs:
 
     - name: Run Pytest
       run: |
-        pytest tests/ --headless
+        pytest tests/ 
       env:
         DISPLAY: :99.0  # For headless tests
