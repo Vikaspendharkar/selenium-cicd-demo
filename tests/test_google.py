@@ -12,7 +12,7 @@ def driver():
     options.add_argument("--headless")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
-    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()),options=options)
     yield driver
     # Teardown WebDriver
     driver.quit()
