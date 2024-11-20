@@ -35,4 +35,4 @@ jobs:
 
     # Step 5: Run Selenium Tests
     - name: Run Tests
-      run: pytest tests/
+      run: pytest -s tests/
