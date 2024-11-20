@@ -41,6 +41,5 @@ jobs:
 
    
 
-    - name: Run Python
-      run: |
-        python tests/
+    - name: Run Selenium script
+      run: python test_google.py
