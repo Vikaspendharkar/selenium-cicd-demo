@@ -18,5 +18,7 @@ def test_google():
 
     # Run the test
     driver.get("https://www.google.com")
+    abc = driver.title
+    print("\n===========\n",abc)
     assert "Google" in driver.title
     driver.quit()
