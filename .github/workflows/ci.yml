@@ -1,45 +1,38 @@
-name: Python Selenium CI
+name: Selenium CI
 
 on:
   push:
     branches:
       - main
   pull_request:
-    branches:
-      - main
 
 jobs:
-  selenium-test:
+  selenium-tests:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
+    # Step 1: Checkout Code
+    - name: Checkout repository
       uses: actions/checkout@v3
 
+    # Step 2: Set Up Python
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.12'
+        python-version: 3.9  # You can adjust this to your desired Python version
 
-    - name: Install pipenv
-      run: python3 -m pip install --upgrade pip && pip install pipenv
-
-    - name: Install dependencies using Pipfile
+    # Step 3: Install Dependencies
+    - name: Install Dependencies
       run: |
-        pip install selenium
-        pip install webdriver-manager
-        pip install service
-        
-        
-        
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
 
-
-    - name: Install Chrome
+    # Step 4: Install Chrome
+    - name: Install Chrome Browser
       run: |
         sudo apt-get update
-        sudo apt-get install -y chromium-browser
+        sudo apt-get install -y google-chrome-stable
 
-   
-
-    - name: Run Selenium script
-      run: python tests/test_google.py
+    # Step 5: Run Selenium Tests
+    - name: Run Tests
+      run: pytest tests/
