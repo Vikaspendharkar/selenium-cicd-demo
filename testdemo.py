@@ -8,9 +8,11 @@ import pytest
 def driver():
     # Setup WebDriver
     driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
-    return 'driver'
+    yield driver
+    # Quit the WebDriver after the test
+    driver.quit()
     
-driver = pytest.fixture(name='driver') (driver)
+
 
 def test_google_search(driver):
     driver.get("https://www.google.com")
