@@ -11,12 +11,11 @@ driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install())
     
 
 
-def google_search():
-    driver.get("https://www.google.com")
-    assert "Google" in driver.title
-    search_box = driver.find_element(By.NAME, "q")
-    search_box.send_keys("Selenium Python")
-    search_box.submit()
+
+driver.get("https://www.google.com")
+assert "Google" in driver.title
+search_box = driver.find_element(By.NAME, "q")
+search_box.send_keys("Selenium Python")
+search_box.submit()
     
 
-google_search()
