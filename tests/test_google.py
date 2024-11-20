@@ -12,7 +12,10 @@ def test_google():
     
     # Initialize the Chrome WebDriver with the specified options
     
-    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+    driver = webdriver.Chrome(
+        service=ChromeService(ChromeDriverManager().install()),
+        options=chrome_options
+    )
         
     
 
