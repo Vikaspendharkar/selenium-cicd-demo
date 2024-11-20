@@ -11,7 +11,7 @@ driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install())
     
 
 
-def test_google_search():
+def google_search():
     driver.get("https://www.google.com")
     assert "Google" in driver.title
     search_box = driver.find_element(By.NAME, "q")
@@ -19,4 +19,4 @@ def test_google_search():
     search_box.submit()
     
 
-test_google_search()
+google_search()
