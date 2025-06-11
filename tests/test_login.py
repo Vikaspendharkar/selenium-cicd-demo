@@ -12,7 +12,7 @@ from openpyxl import Workbook, load_workbook
 from selenium.common.exceptions import NoSuchElementException
 
 # ========== CONFIGURATION ==========
-openai.api_key = "YOUR_OPENAI_API_KEY"
+openai.api_key = os.getenv("OPENAI_API_KEY")
 EXCEL_LOG_FILE = "login_test_log.xlsx"
 SCREENSHOT_DIR = "screenshots"
 os.makedirs(SCREENSHOT_DIR, exist_ok=True)
