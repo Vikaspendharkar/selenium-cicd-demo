@@ -60,7 +60,13 @@ def ask_ai_about_error(message: str) -> str:
 # ====== FIXTURES ======
 @pytest.fixture(scope="class")
 def driver():
-    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+    options = Options()
+    options.add_argument("--headless=new")  # modern headless
+    options.add_argument("--disable-gpu")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    
+    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=options)
     driver.maximize_window()
     driver.implicitly_wait(10)
     yield driver
