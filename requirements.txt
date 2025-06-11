@@ -3,5 +3,4 @@ webdriver-manager
 pytest
 openai
 logging
-os
 openpyxl
