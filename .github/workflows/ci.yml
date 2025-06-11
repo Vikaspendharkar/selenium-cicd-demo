@@ -1,38 +1,40 @@
-name: Selenium CI
+name: Run Selenium Pytest Tests
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   pull_request:
+    branches: [main]
 
 jobs:
-  selenium-tests:
+  test:
     runs-on: ubuntu-latest
 
+    services:
+      selenium:
+        image: selenium/standalone-chrome:latest
+        ports:
+          - 4444:4444
+        options: >-
+          --shm-size=2g
+
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+
     steps:
-    # Step 1: Checkout Code
-    - name: Checkout repository
+    - name: Checkout code
       uses: actions/checkout@v3
 
-    # Step 2: Set Up Python
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: 3.9  # You can adjust this to your desired Python version
+        python-version: '3.11'
 
-    # Step 3: Install Dependencies
-    - name: Install Dependencies
+    - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    # Step 4: Install Chrome
-    - name: Install Chrome Browser
+    - name: Run tests
       run: |
-        sudo apt-get update
-        sudo apt-get install -y google-chrome-stable
-
-    # Step 5: Run Selenium Tests
-    - name: Run Tests
-      run: pytest -s tests/
+        pytest tests/ --maxfail=2 --disable-warnings -v
