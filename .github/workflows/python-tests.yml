@@ -30,7 +30,22 @@ jobs:
       - name: Install headless browser dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y libnss3 libgconf-2-4 libxi6 libxcursor1 libxrandr2 libxss1 libatk1.0-0 libatk-bridge2.0-0 libcups2 libgbm-dev
+          sudo apt-get install -y \
+          libnss3 \
+          libxi6 \
+          libxcursor1 \
+          libxrandr2 \
+          libxss1 \
+          libatk1.0-0 \
+          libatk-bridge2.0-0 \
+          libcups2 \
+          libgbm-dev
+
+      - name: Set up virtual display
+        run: |
+          sudo apt-get install -y xvfb
+          Xvfb :99 & export DISPLAY=:99
+          
 
       - name: Run tests with Pytest in headless Chrome
         run: |
