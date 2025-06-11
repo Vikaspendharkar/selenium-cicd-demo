@@ -10,31 +10,37 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    services:
-      selenium:
-        image: selenium/standalone-chrome:latest
-        ports:
-          - 4444:4444
-        options: >-
-          --shm-size=2g
-
     env:
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.11'
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
-    - name: Run tests
-      run: |
-        pytest tests/ --maxfail=2 --disable-warnings -v
+      - name: Install headless browser dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libnss3 libgconf-2-4 libxi6 libxcursor1 libxrandr2 libxss1 libatk1.0-0 libatk-bridge2.0-0 libcups2 libgbm-dev
+
+      - name: Run tests with Pytest in headless Chrome
+        run: |
+          pytest tests/ --maxfail=2 --disable-warnings -v
+
+      - name: Upload test screenshots and Excel log
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-artifacts
+          path: |
+            screenshots/
+            login_test_log.xlsx
