@@ -1,3 +1,6 @@
 selenium
 webdriver-manager
 pytest
+openai
+logging
+os
