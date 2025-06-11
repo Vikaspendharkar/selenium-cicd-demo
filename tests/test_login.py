@@ -3,7 +3,7 @@ import logging
 import pytest
 import os
 import time
-import datetime
+from datetime import datetime, timezone
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service as ChromeService
@@ -83,7 +83,7 @@ class TestLoginWithAI:
         ])
 
     def test_login(self, driver, username, password, expected_success):
-        timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+        timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         screenshot_file = os.path.join(SCREENSHOT_DIR, f"screenshot_{timestamp}.png")
         driver.get("https://test.omniparcel.com/")  # Replace with your login URL
         
