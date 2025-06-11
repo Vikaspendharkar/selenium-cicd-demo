@@ -1,4 +1,4 @@
-name: Selenium CI/CD Demo
+name: Selenium Login Test
 
 on:
   push:
@@ -19,13 +19,13 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install dependencies
+      - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install pytest openpyxl selenium webdriver-manager openai
 
-      - name: Install headless browser dependencies
+      - name: Install required system packages
         run: |
           sudo apt-get update
           sudo apt-get install -y \
@@ -37,18 +37,29 @@ jobs:
             libatk1.0-0 \
             libatk-bridge2.0-0 \
             libcups2 \
-            libgbm-dev
+            libgbm-dev \
+            fonts-liberation \
+            libasound2 \
+            libpangocairo-1.0-0 \
+            libxcomposite1 \
+            libxdamage1 \
+            libxinerama1 \
+            libgl1 \
+            libgtk-3-0 \
+            wget \
+            unzip \
+            xvfb
 
-      - name: Run Pytest
+      - name: Run tests with Pytest
         run: |
           pytest tests/ --maxfail=3 --disable-warnings -v
 
-      - name: Ensure artifacts exist
+      - name: Ensure artifacts directory exists
         run: |
           mkdir -p screenshots
           touch login_test_log.xlsx
 
-      - name: Upload test screenshots and Excel log
+      - name: Upload screenshots and logs
         if: always()
         uses: actions/upload-artifact@v4
         with:
